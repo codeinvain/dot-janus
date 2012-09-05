@@ -1,0 +1,78 @@
+colorscheme  Tomorrow-Night
+if has("gui_macvim")
+
+  " Command-O for list of Opened buffers (using command t buffers)
+  map <D-O> :CommandTBuffer<CR>
+  imap <D-O> <Esc>:CommandTBuffer<CR>
+
+  " Command-Shift-F for Ack
+  imap <D-F> <Esc>viwy<Esc>:Ack!<Space>"<C-r>""
+  map <D-F> <Esc>viwy:Ack!<space>"<C-r>""
+  vmap <D-F> y<Esc>:Ack!<space>"<C-r>""
+
+  " search pattern yank selection 
+  vmap / y<Esc>/<C-r>"
+  vmap ? y<Esc>?<C-r>"
+
+  " map Command-Shift-5 (Command-%) for search replace pattern
+  vmap <D-%> y<Esc>:%s/<C-r>"/
+  map <D-%> viwy<Esc>:%s/<C-r>"/
+  imap <D-%> <Esc>viwy<Esc>:%s/<C-r>"/
+
+  " map Alt-/ to remove highlited search results (nohl)
+  nn <M-/> :nohl<CR>
+  vn <M-/> :nohl<CR>
+  ino <M-/> <C-o>:nohl<CR>
+
+  " Command-d to delete line
+  imap <D-d> <Esc>ddi
+  map <D-d> dd
+
+
+  " Command-Option-ArrowKey to switch viewports (insert mode fix)
+  imap <D-M-Up> <C-o><C-w>k
+  imap <D-M-Down> <C-o><C-w>j
+  imap <D-M-Right> <C-o><C-w>l
+  imap <D-M-Left> <C-o><C-w>h
+
+
+  " Command-Shift-[hjkl] to switch viewports
+  map <D-K> <C-w>k
+  imap <D-K> <C-o><C-w>k
+  map <D-J> <C-w>j
+  imap <D-J> <C-o><C-w>j
+  map <D-L> <C-w>l
+  imap <D-L> <C-o><C-w>l
+  map <D-H> <C-w>h
+  imap <D-H> <C-o><C-w>h
+
+  " Ctrl [hjkl] to move in buffers
+  map <C-h> h
+  imap <C-h> <C-o>h
+  map <C-j> j
+  imap <C-j> <C-o>j
+  map <C-k> k
+  imap <C-k> <C-o>k
+  map <C-l> l
+  imap <C-l> <C-o>l
+
+
+  " Remap select text (alt shift [left/right]) to visual commands B/E
+  nn   <S-M-Left> vb<C-g>
+  vn   <S-M-Left> b<C-g>
+  ino  <S-M-Left> <Esc>vb<C-g>
+  nn   <S-M-Right> ve<C-g>
+  vn   <S-M-Right> e<C-g>
+  ino  <S-M-Right> <Esc>ve<C-g>
+
+
+else
+  " Ctrl-Shift-F for Ack
+  map <C-F> :Ack!<space>
+  vmap <C-F> y<Esc>:Ack!<space>"<C-r>""
+
+endif
+autocmd BufNewFile,BufRead *.html.erb set filetype=eruby.html
+
+
+

@@ -1,0 +1,18 @@
+if !has("gui_running")
+  set t_Co=256
+endif
+
+if has("mac")
+  set macmeta
+endif
+
+" Use Node.js for JavaScript interpretation
+let $JS_CMD='node'
+
+"spelling
+:map <F5> :setlocal spell! spelllang=en_us<CR>
+
+" make uses real tabs
+au FileType make set noexpandtab
+
+
