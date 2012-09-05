@@ -1,0 +1,45 @@
+[submodule "snipmate-snippets"]
+	path = snipmate-snippets
+	url = https://github.com/codeinvain/snipmate-snippets.git
+[submodule "jslint.vim"]
+	path = jslint.vim
+	url = git://github.com/hallettj/jslint.vim.git
+[submodule "AutoComplPop"]
+	path = AutoComplPop
+	url = git://github.com/vim-scripts/AutoComplPop.git
+[submodule "SQLComplete.vim"]
+	path = SQLComplete.vim
+	url = git://github.com/vim-scripts/SQLComplete.vim.git
+[submodule "tabular"]
+	path = tabular
+	url = git://github.com/godlygeek/tabular.git
+[submodule "vim-easymotion"]
+	path = vim-easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git
+[submodule "vim-exjumplist"]
+	path = vim-exjumplist
+	url = git://github.com/kana/vim-exjumplist.git
+[submodule "vim-ruby-refactoring"]
+	path = vim-ruby-refactoring
+	url = git://github.com/ecomba/vim-ruby-refactoring.git
+[submodule "vim-textobj-rubyblock"]
+	path = vim-textobj-rubyblock
+	url = git://github.com/nelstrom/vim-textobj-rubyblock.git
+[submodule "vim-textobj-user"]
+	path = vim-textobj-user
+	url = git://github.com/kana/vim-textobj-user.git
+[submodule "vim-textobj-function-javascript"]
+	path = vim-textobj-function-javascript
+	url = git://github.com/thinca/vim-textobj-function-javascript.git
+[submodule "vim-textobj-function"]
+	path = vim-textobj-function
+	url = git://github.com/kana/vim-textobj-function.git
+[submodule "YankRing.vim"]
+	path = YankRing.vim
+	url = git://github.com/vim-scripts/YankRing.vim.git
+[submodule "delimitMate"]
+	path = delimitMate
+	url = git://github.com/Raimondi/delimitMate.git
+[submodule "zencoding-vim"]
+	path = zencoding-vim
+	url = git://github.com/mattn/zencoding-vim.git
