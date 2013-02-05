@@ -40,6 +40,6 @@
 [submodule "zencoding-vim"]
 	path = zencoding-vim
 	url = git://github.com/mattn/zencoding-vim.git
-[submodule "you_complete_me"]
-	path = you_complete_me
-	url = git://github.com/Valloric/YouCompleteMe.git
+[submodule "auto_complpop"]
+	path = auto_complpop
+	url = git://github.com/vim-scripts/AutoComplPop.git
