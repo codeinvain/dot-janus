@@ -75,4 +75,8 @@ endif
 autocmd BufNewFile,BufRead *.html.erb set filetype=eruby.html
 
 
-
+let b:thisdir=expand("%:p:h")
+let b:vim=b:thisdir."/.vimrc"
+if (filereadable(b:vim))
+    execute "source ".b:vim
+endif

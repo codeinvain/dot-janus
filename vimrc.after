@@ -40,3 +40,8 @@ autocmd FileType,Syntax ruby :call TextEnableCodeSnip('javascript', "<<-JS", "JS
 " source snippet helper functions 
 source ~/.janus/snipmate-snippets/support_functions.vim
 
+let b:thisdir=expand("%:p:h")
+let b:vim=b:thisdir."/.vimrc"
+if (filereadable(b:vim))
+  execute "source ".b:vim
+endif

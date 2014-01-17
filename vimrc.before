@@ -1,3 +1,5 @@
+set exrc            " enable per-directory .vimrc files
+set secure          " disable unsafe commands in local .vimrc files
 if !has("gui_running")
   set t_Co=256
 endif
@@ -14,5 +16,7 @@ let $JS_CMD='node'
 
 " make uses real tabs
 au FileType make set noexpandtab
+
+cmap w!! %!sudo tee > /dev/null %
 
 
