@@ -1,15 +1,9 @@
-[submodule "snipmate-snippets"]
-	path = snipmate-snippets
-	url = git://github.com/msanders/snipmate.vim.git
 [submodule "SQLComplete.vim"]
 	path = SQLComplete.vim
 	url = git://github.com/vim-scripts/SQLComplete.vim.git
 [submodule "tabular"]
 	path = tabular
 	url = git://github.com/godlygeek/tabular.git
-[submodule "vim-easymotion"]
-	path = vim-easymotion
-	url = git://github.com/Lokaltog/vim-easymotion.git
 [submodule "vim-exjumplist"]
 	path = vim-exjumplist
 	url = git://github.com/kana/vim-exjumplist.git
@@ -55,6 +49,3 @@
 [submodule "jslint.vim"]
 	path = jslint.vim
 	url = https://github.com/hallettj/jslint.vim.git
-[submodule "vim-powerline"]
-	path = vim-powerline
-	url = https://github.com/Lokaltog/vim-powerline.git
