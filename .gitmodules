@@ -37,9 +37,6 @@
 [submodule "vim_multiple_cursors"]
 	path = vim_multiple_cursors
 	url = git://github.com/terryma/vim-multiple-cursors.git
-[submodule "powerline"]
-	path = powerline
-	url = git://github.com/Lokaltog/powerline.git
 [submodule "proton"]
 	path = proton
 	url = https://github.com/vim-scripts/proton
@@ -49,3 +46,6 @@
 [submodule "jslint.vim"]
 	path = jslint.vim
 	url = https://github.com/hallettj/jslint.vim.git
+[submodule "vim-airline"]
+	path = vim-airline
+	url = https://github.com/bling/vim-airline
