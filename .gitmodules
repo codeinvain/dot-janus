@@ -43,9 +43,12 @@
 [submodule "vim-node"]
 	path = vim-node
 	url = https://github.com/moll/vim-node.git
-[submodule "jslint.vim"]
-	path = jslint.vim
-	url = https://github.com/hallettj/jslint.vim.git
 [submodule "vim-airline"]
 	path = vim-airline
 	url = https://github.com/bling/vim-airline
+[submodule "vim-node-dict"]
+	path = vim-node-dict
+	url = https://github.com/guileen/vim-node-dict.git
+[submodule "vim-javascript-syntax"]
+	path = vim-javascript-syntax
+	url = https://github.com/jelera/vim-javascript-syntax.git

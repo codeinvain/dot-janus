@@ -37,6 +37,8 @@ endfunction
 autocmd FileType,Syntax ruby :call TextEnableCodeSnip('mysql', "<<-SQL", "SQL", 'Comment')
 autocmd FileType,Syntax ruby :call TextEnableCodeSnip('javascript', "<<-JS", "JS", 'Comment')
 
+au FileType javascript set dictionary+=$HOME/.janus/vim-node-dict/dict/node.dict
+
 let b:thisdir=expand("%:p:h")
 let b:vim=b:thisdir."/.vimrc"
 if (filereadable(b:vim))
