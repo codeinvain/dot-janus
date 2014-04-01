@@ -20,3 +20,4 @@ au FileType make set noexpandtab
 cmap w!! %!sudo tee > /dev/null %
 
 
+call janus#disable_plugin('vim-trailing-whitespace')
