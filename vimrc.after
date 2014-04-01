@@ -7,7 +7,7 @@ colorscheme Tomorrow-Night
 " easymotion mapping
 let g:EasyMotion_leader_key = '<Leader>]'
 
-" ruby embedded document highlight 
+" ruby embedded document highlight
 function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
   let ft=toupper(a:filetype)
   let group='textGroup'.ft
@@ -36,6 +36,8 @@ endfunction
 
 autocmd FileType,Syntax ruby :call TextEnableCodeSnip('mysql', "<<-SQL", "SQL", 'Comment')
 autocmd FileType,Syntax ruby :call TextEnableCodeSnip('javascript', "<<-JS", "JS", 'Comment')
+autocmd BufNewFile,BufRead Procfile,Procfile.dev setf yaml
+
 
 au FileType javascript set dictionary+=$HOME/.janus/vim-node-dict/dict/node.dict
 
