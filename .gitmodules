@@ -52,3 +52,12 @@
 [submodule "vim-javascript-syntax"]
 	path = vim-javascript-syntax
 	url = https://github.com/jelera/vim-javascript-syntax.git
+[submodule "vim-jade"]
+	path = vim-jade
+	url = git://github.com/digitaltoad/vim-jade.git
+[submodule "vim-colors"]
+	path = vim-colors
+	url = https://github.com/dandorman/vim-colors.git
+[submodule "vim-colorschemes"]
+	path = vim-colorschemes
+	url = https://github.com/flazz/vim-colorschemes.git
