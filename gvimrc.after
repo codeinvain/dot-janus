@@ -10,7 +10,7 @@ if has("gui_macvim")
   map <D-F> <Esc>viwy:Ack!<space>"<C-r>""
   vmap <D-F> y<Esc>:Ack!<space>"<C-r>""
 
-  " search pattern yank selection 
+  " search pattern yank selection
   vmap / y<Esc>/<C-r>"
   vmap ? y<Esc>?<C-r>"
 
@@ -73,6 +73,8 @@ else
 
 endif
 autocmd BufNewFile,BufRead *.html.erb set filetype=eruby.html
+autocmd BufNewFile,BufRead *.cap set filetype=ruby
+
 
 
 let b:thisdir=expand("%:p:h")
@@ -80,3 +82,10 @@ let b:vim=b:thisdir."/.vimrc"
 if (filereadable(b:vim))
     execute "source ".b:vim
 endif
+
+if has("gui_macvim")
+    macmenu Edit.Find.Find\.\.\. key=<nop>
+    map <D-f> :CtrlPLine<CR>
+    imap <D-f> :CtrlPLine<CR>
+end
+
