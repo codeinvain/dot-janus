@@ -1,7 +1,7 @@
 "nerdtree
 let g:NERDTreeHijackNetrw=1
 let g:nerdtree_tabs_autoclose=0
-map <Leader>rt :!ctags --exclude=log  --exclude=tmp --exclude=script --exclude=public --exclude=doc --exclude=nbproject --exclude=.git  --extra=+f -R *  <CR><CR>
+map <Leader>rt :!ctags --exclude=log --exclude=doc --exclude=nbproject --exclude=.\* --extra=+f -R *  <CR><CR>
 colorscheme Tomorrow-Night
 
 " easymotion mapping
@@ -37,12 +37,53 @@ endfunction
 autocmd FileType,Syntax ruby :call TextEnableCodeSnip('mysql', "<<-SQL", "SQL", 'Comment')
 autocmd FileType,Syntax ruby :call TextEnableCodeSnip('javascript', "<<-JS", "JS", 'Comment')
 autocmd BufNewFile,BufRead Procfile,Procfile.dev setf yaml
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+
 
 
 au FileType javascript set dictionary+=$HOME/.janus/vim-node-dict/dict/node.dict
 
 let b:thisdir=expand("%:p:h")
-let b:vim=b:thisdir."/.vimrc"
+let b:vim=b:thisdir.'/.vimrc'
 if (filereadable(b:vim))
+  let b:vim=substitute(b:vim,' ','\\ ','g')
   execute "source ".b:vim
 endif
+
+let g:syntastic_html_tidy_ignore_errors = [
+    \"trimming empty <i>",
+    \"trimming empty <span>",
+    \"<input> proprietary attribute \"autocomplete\"",
+    \"proprietary attribute \"role\"",
+    \"proprietary attribute \"hidden\"",
+\]
+
+"autocmd VimEnter * NERDTree
+"autocmd BufEnter * NERDTreeMirror
+
+autocmd Filetype html setlocal ts=2 sts=2 sw=2
+autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+
+let javascript_enable_domhtmlcss=1
+
+" CoffeeScript Tagbar
+let g:tagbar_type_coffee = {
+    \ 'ctagstype' : 'coffee',
+    \ 'kinds'     : [
+        \ 'm:methods',
+        \ 'f:functions',
+    \ ]
+\ }
+
+" CoffeeScript CtrlPBufTag
+"let g:ctrlp_buftag_types = {'coffee'     : '--language-force=coffee --coffee-types=mf' }
+let g:ctrlp_buftag_types = {'coffee'     : '--language-force=coffee' ,'javascript'  : '--language-force=neojs'  }
+"let g:ctrlp_buftag_types = {
+      "\ 'javascript' : '--language-force=js',
+      "\ 'coffee'     : '--language-force=coffee',
+      "\ }
+
+
+"let $CTAGS = substitute(s:ctags_opts, '\v\\([nst]\\)', '\\\\\1', 'g')
+
