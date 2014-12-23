@@ -19,21 +19,9 @@
 [submodule "vim-textobj-function"]
 	path = vim-textobj-function
 	url = git://github.com/kana/vim-textobj-function.git
-[submodule "YankRing.vim"]
-	path = YankRing.vim
-	url = git://github.com/vim-scripts/YankRing.vim.git
 [submodule "delimitMate"]
 	path = delimitMate
 	url = git://github.com/Raimondi/delimitMate.git
-[submodule "zencoding-vim"]
-	path = zencoding-vim
-	url = git://github.com/mattn/zencoding-vim.git
-[submodule "auto_complpop"]
-	path = auto_complpop
-	url = git://github.com/vim-scripts/AutoComplPop.git
-[submodule "vim_multiple_cursors"]
-	path = vim_multiple_cursors
-	url = git://github.com/terryma/vim-multiple-cursors.git
 [submodule "vim-node"]
 	path = vim-node
 	url = https://github.com/moll/vim-node.git
@@ -43,9 +31,6 @@
 [submodule "vim-node-dict"]
 	path = vim-node-dict
 	url = https://github.com/guileen/vim-node-dict.git
-[submodule "vim-javascript-syntax"]
-	path = vim-javascript-syntax
-	url = https://github.com/jelera/vim-javascript-syntax.git
 [submodule "vim-jade"]
 	path = vim-jade
 	url = git://github.com/digitaltoad/vim-jade.git
@@ -70,3 +55,15 @@
 [submodule "vim-bookmarks"]
 	path = vim-bookmarks
 	url = https://github.com/MattesGroeger/vim-bookmarks.git
+[submodule "closetag.vim"]
+	path = closetag.vim
+	url = git@github.com:vim-scripts/closetag.vim.git
+[submodule "vim-abolish"]
+	path = vim-abolish
+	url = git@github.com:tpope/vim-abolish.git
+[submodule "YankRing.vim"]
+	path = YankRing.vim
+	url = git@github.com:vim-scripts/YankRing.vim.git
+[submodule "AutoComplPop"]
+  path = AutoComplPop
+  url = git://github.com/vim-scripts/AutoComplPop.git

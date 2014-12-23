@@ -11,9 +11,6 @@ if has("gui_macvim")
   map <D-F> <Esc>viwy:Ack!<space>"<C-r>""
   vmap <D-F> y<Esc>:Ack!<space>"<C-r>""
 
-  " search pattern yank selection
-  vmap / y<Esc>/<C-r>"
-  vmap ? y<Esc>?<C-r>"
 
   " map Command-Shift-5 (Command-%) for search replace pattern
   vmap <D-%> y<Esc>:%s/<C-r>"/

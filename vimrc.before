@@ -30,3 +30,7 @@ let g:syntastic_html_tidy_ignore_errors = [
     \"proprietary attribute \"hidden\"",
 \]
 
+
+let g:yankring_replace_n_pkey = '<m-p>'
+let g:yankring_replace_n_nkey = '<m-n>'
+
