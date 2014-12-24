@@ -31,6 +31,20 @@ let g:syntastic_html_tidy_ignore_errors = [
 \]
 
 
+" yank ring remapping
 let g:yankring_replace_n_pkey = '<m-p>'
 let g:yankring_replace_n_nkey = '<m-n>'
 
+" vim bookmarks remapping
+nmap <C-m>m <Plug>BookmarkToggle
+nmap <C-m>i <Plug>BookmarkAnnotate
+nmap <C-m>a <Plug>BookmarkShowAll
+nmap <C-m>j <Plug>BookmarkNext
+nmap <C-m>k <Plug>BookmarkPrev
+nmap <C-m>c <Plug>BookmarkClear
+nmap <C-m>x <Plug>BookmarkClearAll
+
+" split current line at cursor location and add new tabbed line in between
+imap <S-CR> <CR><CR><Esc>ka<C-t>
+
+  
