@@ -87,3 +87,4 @@ let g:ctrlp_buftag_types = {'coffee'     : '--language-force=coffee' ,'javascrip
 
 "let $CTAGS = substitute(s:ctags_opts, '\v\\([nst]\\)', '\\\\\1', 'g')
 
+GitGutterDisable
