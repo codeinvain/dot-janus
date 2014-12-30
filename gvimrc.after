@@ -2,10 +2,6 @@ colorscheme  Tomorrow-Night
 
 if has("gui_macvim")
 
-  " Command-O for list of Opened buffers (using command t buffers)
-  map <D-O> :CommandTBuffer<CR>
-  imap <D-O> <Esc>:CommandTBuffer<CR>
-
   " Command-Shift-F for Ack
   imap <D-F> <Esc>viwy<Esc>:Ack!<Space>"<C-r>""
   map <D-F> <Esc>viwy:Ack!<space>"<C-r>""
@@ -238,3 +234,4 @@ if (filereadable(b:vim))
   let b:vim=substitute(b:vim,' ','\\ ','g')
   execute "source ".b:vim
 endif
+set noballooneval

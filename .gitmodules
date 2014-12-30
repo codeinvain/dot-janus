@@ -67,3 +67,6 @@
 [submodule "AutoComplPop"]
   path = AutoComplPop
   url = git://github.com/vim-scripts/AutoComplPop.git
+[submodule "vim-gitgutter"]
+	path = vim-gitgutter
+	url = git@github.com:airblade/vim-gitgutter.git
