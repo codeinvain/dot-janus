@@ -23,7 +23,6 @@ def copy_from_template(source,dest)
 end
 
 template_dir =File.join(File.absolute_path(path),'..',"templates",template_name)
-puts template_dir
 has_template = Dir.exist?(template_dir)
 
 if (!has_template)
