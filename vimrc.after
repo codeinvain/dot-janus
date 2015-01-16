@@ -37,7 +37,6 @@ endfunction
 autocmd FileType,Syntax ruby :call TextEnableCodeSnip('mysql', "<<-SQL", "SQL", 'Comment')
 autocmd FileType,Syntax ruby :call TextEnableCodeSnip('javascript', "<<-JS", "JS", 'Comment')
 autocmd BufNewFile,BufRead Procfile,Procfile.dev setf yaml
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
 
 
@@ -56,6 +55,7 @@ let g:syntastic_html_tidy_ignore_errors = [
     \"<input> proprietary attribute \"autocomplete\"",
     \"proprietary attribute \"role\"",
     \"proprietary attribute \"hidden\"",
+    \" proprietary attribute \"ng-"
 \]
 
 "autocmd VimEnter * NERDTree
