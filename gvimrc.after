@@ -228,10 +228,7 @@ endfun
 
 autocmd TabLeave * call <SID>TabLeaveHandler()
 
-let b:thisdir=expand("%:p:h")
-let b:vim=b:thisdir.'/.vimrc'
-if (filereadable(b:vim))
-  let b:vim=substitute(b:vim,' ','\\ ','g')
-  execute "source ".b:vim
-endif
 set noballooneval
+set balloondelay=100000
+setlocal balloonexpr=
+let g:syntastic_enable_balloons = 0

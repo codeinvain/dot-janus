@@ -1,5 +1,8 @@
-set exrc            " enable per-directory .vimrc files
-set secure          " disable unsafe commands in local .vimrc files
+
+" force save files when no permission
+cmap w!! %!sudo tee > /dev/null %  
+
+
 if !has("gui_running")
   set t_Co=256
 endif
@@ -17,18 +20,8 @@ let $JS_CMD='node'
 " make uses real tabs
 au FileType make set noexpandtab
 
-cmap w!! %!sudo tee > /dev/null %
-
-
+" disable trailing whitespace plugin 
 call janus#disable_plugin('vim-trailing-whitespace')
-
-let g:syntastic_html_tidy_ignore_errors = [
-    \"trimming empty <i>",
-    \"trimming empty <span>",
-    \"<input> proprietary attribute \"autocomplete\"",
-    \"proprietary attribute \"role\"",
-    \"proprietary attribute \"hidden\"",
-\]
 
 
 " yank ring remapping
