@@ -1,8 +1,42 @@
+" color
+colorscheme Tomorrow-Night
+
 "nerdtree
 let g:NERDTreeHijackNetrw=1
 let g:nerdtree_tabs_autoclose=0
-map <Leader>rt :!ctags --exclude=log --exclude=doc --exclude=nbproject --exclude=.\* --extra=+f -R *  <CR><CR>
-colorscheme Tomorrow-Night
+
+" ctags
+function! DelTagOfFile(file)
+  let fullpath = a:file
+  let cwd = getcwd()
+  let tagfilename = cwd . "/tags"
+  let f = substitute(fullpath, cwd . "/", "", "")
+  let f = escape(f, './')
+  let cmd = 'sed -i "" -e "/' . f . '/d" "' . tagfilename . '"'
+  let resp = system(cmd)
+endfunction
+
+function! UpdateTags()
+  let f = expand("%:p")
+  let cwd = getcwd()
+  let tagfilename = cwd . "/tags"
+  call DelTagOfFile(f)
+  let cmd = 'ctags -a -f ' . tagfilename . ' --c++-kinds=+p --fields=+iaS --extra=+q ' . '"' . f . '"'
+  let resp = system(cmd)
+endfunction
+
+autocmd BufWritePost *.* call UpdateTags()
+
+function! RegenerateCTags()
+  if !exists("g:ctags_regenerate_args")
+    let g:ctags_regenerate_args = ''
+  endif
+  
+  let cmd = 'ctags --exclude=log --exclude=doc --exclude=tmp --exclude=node_modules --exclude=bower_components '. g:ctags_regenerate_args.' --exclude=.\* --extra=+f -R * '
+  let resp = system(cmd)
+endfunction
+
+map <Leader>rt :call RegenerateCTags()<CR>
 
 " easymotion mapping
 let g:EasyMotion_leader_key = '<Leader>]'
@@ -38,16 +72,7 @@ autocmd FileType,Syntax ruby :call TextEnableCodeSnip('mysql', "<<-SQL", "SQL", 
 autocmd FileType,Syntax ruby :call TextEnableCodeSnip('javascript', "<<-JS", "JS", 'Comment')
 autocmd BufNewFile,BufRead Procfile,Procfile.dev setf yaml
 
-
-
 au FileType javascript set dictionary+=$HOME/.janus/vim-node-dict/dict/node.dict
-
-let b:thisdir=expand("%:p:h")
-let b:vim=b:thisdir.'/.vimrc'
-if (filereadable(b:vim))
-  let b:vim=substitute(b:vim,' ','\\ ','g')
-  execute "source ".b:vim
-endif
 
 let g:syntastic_html_tidy_ignore_errors = [
     \"trimming empty <i>",
@@ -76,15 +101,20 @@ let g:tagbar_type_coffee = {
     \ ]
 \ }
 
-" CoffeeScript CtrlPBufTag
-"let g:ctrlp_buftag_types = {'coffee'     : '--language-force=coffee --coffee-types=mf' }
 let g:ctrlp_buftag_types = {'coffee'     : '--language-force=coffee' ,'javascript'  : '--language-force=neojs'  }
-"let g:ctrlp_buftag_types = {
-      "\ 'javascript' : '--language-force=js',
-      "\ 'coffee'     : '--language-force=coffee',
-      "\ }
-
-
-"let $CTAGS = substitute(s:ctags_opts, '\v\\([nst]\\)', '\\\\\1', 'g')
 
 GitGutterDisable
+
+
+" SUPPORT VIM PROJECT FILES
+" enable per-directory .vimrc files
+set exrc            
+" disable unsafe commands in local .vimrc files
+set secure          
+let b:thisdir=expand("%:p:h")
+let b:vim=b:thisdir.'/.vimrc'
+if (filereadable(b:vim))
+  let b:vim=substitute(b:vim,' ','\\ ','g')
+  execute "source ".b:vim
+endif
+
