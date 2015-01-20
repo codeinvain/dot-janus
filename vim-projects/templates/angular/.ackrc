@@ -1,0 +1,10 @@
+--ignore-dir=log
+--ignore-dir=.tmp
+--ignore-dir=dist
+--ignore-dir=vendor
+--ignore-dir=node_modules
+--ignore-dir=bower_components
+--ignore-dir=build
+--ignore-dir=karma
+--ignore-file=is:tags
+
