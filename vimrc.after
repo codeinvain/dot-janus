@@ -30,7 +30,6 @@ function! UpdateTags()
   "echo "DONE !"
 endfunction
 
-autocmd BufWritePost *.* call UpdateTags()
 
 function! RegenerateCTags()
   if !exists("g:ctags_regenerate_args")
