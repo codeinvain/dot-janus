@@ -73,3 +73,6 @@
 [submodule "vim-angular"]
 	path = vim-angular
 	url = git@github.com:burnettk/vim-angular.git
+[submodule "emmet-vim"]
+	path = emmet-vim
+	url = https://github.com/mattn/emmet-vim.git
