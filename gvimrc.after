@@ -95,24 +95,24 @@ function! JanusGetProjectDirName()
 endfunction
 
 function! JanusGitBranch()
-    let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
-    if branch != ''
-        return " / ".substitute(branch, '\n', '', 'g')
-    en
-    return ''
+  let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+  if branch != ''
+    return " / ".substitute(branch, '\n', '', 'g')
+  en
+  return ''
 endfunction
 
 function! JanusMacVimWindowTitle()
-    set titlelen=100
-    let &titlestring=  "[".JanusGetProjectDirName() .JanusGitBranch()."]\ "
-    autocmd BufNewFile,BufRead * let &titlestring=  "[".JanusGetProjectDirName() .JanusGitBranch()."]\ ".expand('%:t')
+  set titlelen=100
+  let &titlestring=  "[".JanusGetProjectDirName() .JanusGitBranch()."]\ "
+  autocmd BufNewFile,BufRead * let &titlestring=  "[".JanusGetProjectDirName() .JanusGitBranch()."]\ ".expand('%:t')
 endfunction
 
 
 if has("gui_macvim")
-    macmenu Edit.Find.Find\.\.\. key=<nop>
-    map <D-f> :CtrlPLine<CR>
-    imap <D-f> :CtrlPLine<CR>
+  macmenu Edit.Find.Find\.\.\. key=<nop>
+  map <D-f> :CtrlPLine<CR>
+  imap <D-f> :CtrlPLine<CR>
 end
 
 function! PatchColorScheme()
@@ -126,10 +126,10 @@ call PatchColorScheme()
 :cmap <F7> <C-\>eAppendSome()<CR>
 
 func! AppendSome()
-   let cmd = getcmdline() . " Some()"
-   " place the cursor on the )
-   call setcmdpos(strlen(cmd))
-   return cmd
+  let cmd = getcmdline() . " Some()"
+  " place the cursor on the )
+  call setcmdpos(strlen(cmd))
+  return cmd
 endfunc
 
 func! ClipBoardOrCursorWord()
@@ -155,24 +155,24 @@ call NERDTreeAddKeyMap({ 'scope': 'FileNode', 'key': '<S-CR>', 'callback': 'NERD
 
 
 function! NERDTreeCustomMapsOpenInFgTab(fnode)
-	call a:fnode.open({'where' : 't'})
+  call a:fnode.open({'where' : 't'})
 endfunction
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " CTRL P open selection in new tab using <CTRL+ENTER> or <SHIFT+ENTER>
 let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("h")': ['<c-x>', '<c-s>'],
-    \ 'AcceptSelection("t")': ['<c-t>', '<c-cr>','<s-cr>'],
-    \ }
+      \ 'AcceptSelection("h")': ['<c-x>', '<c-s>'],
+      \ 'AcceptSelection("t")': ['<c-t>', '<c-cr>','<s-cr>'],
+      \ }
 
 
 
 
 " NERD TREE UNFOCUS
 fun! s:TabLeaveHandler()
-    call s:SaveGlobalFocus()
-    call s:NERDTreeUnfocus()
+  call s:SaveGlobalFocus()
+  call s:NERDTreeUnfocus()
 endfun
 
 fun! s:SaveGlobalFocus()
