@@ -55,9 +55,6 @@
 [submodule "vim-bookmarks"]
 	path = vim-bookmarks
 	url = https://github.com/MattesGroeger/vim-bookmarks.git
-[submodule "closetag.vim"]
-	path = closetag.vim
-	url = git@github.com:vim-scripts/closetag.vim.git
 [submodule "vim-abolish"]
 	path = vim-abolish
 	url = git@github.com:tpope/vim-abolish.git
@@ -76,3 +73,6 @@
 [submodule "emmet-vim"]
 	path = emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
+[submodule "vim-ragtag"]
+	path = vim-ragtag
+	url = https://github.com/tpope/vim-ragtag.git
