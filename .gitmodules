@@ -76,3 +76,6 @@
 [submodule "vim-ragtag"]
 	path = vim-ragtag
 	url = https://github.com/tpope/vim-ragtag.git
+[submodule "dockerfile"]
+	path = dockerfile
+	url = https://github.com/ekalinin/Dockerfile.vim.git
