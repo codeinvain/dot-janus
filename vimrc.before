@@ -43,3 +43,4 @@ nmap <C-m>x <Plug>BookmarkClearAll
 imap <S-CR> <CR><CR><Esc>ka<C-t>
 
 let mapleader = "\<Space>"
+
