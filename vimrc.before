@@ -1,6 +1,6 @@
 
 " force save files when no permission
-cmap w!! %!sudo tee > /dev/null %  
+cmap w!! %!sudo tee > /dev/null %
 
 
 if !has("gui_running")
@@ -20,7 +20,7 @@ let $JS_CMD='node'
 " make uses real tabs
 au FileType make set noexpandtab
 
-" disable trailing whitespace plugin 
+" disable trailing whitespace plugin
 call janus#disable_plugin('vim-trailing-whitespace')
 
 
@@ -44,3 +44,4 @@ imap <S-CR> <CR><CR><Esc>ka<C-t>
 
 let mapleader = "\<Space>"
 
+let g:airline_theme='dark' 
