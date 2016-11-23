@@ -36,7 +36,7 @@ function! RegenerateCTags()
     let g:ctags_regenerate_args = ''
   endif
   
-  let cmd = 'ctags --exclude=log --exclude=doc --exclude=tmp --exclude=node_modules --exclude=bower_components '. g:ctags_regenerate_args.' --exclude=.\* --extra=+f -R * '
+  let cmd = 'ctags --exclude=log --exclude=tmp --exclude=node_modules '. g:ctags_regenerate_args.' --exclude=.\* --extra=+f -R * '
   echo cmd
   let resp = system(cmd)
   echo resp
@@ -101,15 +101,15 @@ autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 let javascript_enable_domhtmlcss=1
 
 " CoffeeScript Tagbar
-let g:tagbar_type_coffee = {
-    \ 'ctagstype' : 'coffee',
-    \ 'kinds'     : [
-        \ 'm:methods',
-        \ 'f:functions',
-    \ ]
-\ }
+"let g:tagbar_type_coffee = {
+    "\ 'ctagstype' : 'coffee',
+    "\ 'kinds'     : [
+        "\ 'm:methods',
+        "\ 'f:functions',
+    "\ ]
+"\ }
 
-let g:ctrlp_buftag_types = {'coffee'     : '--language-force=coffee' ,'javascript'  : '--language-force=neojs'  }
+"let g:ctrlp_buftag_types = {'coffee'     : '--language-force=coffee' ,'javascript'  : '--language-force=neojs'  }
 
 GitGutterDisable
 
@@ -126,3 +126,4 @@ if (filereadable(b:vim))
   execute "source ".b:vim
 endif
 
+let g:jsx_ext_required = 0

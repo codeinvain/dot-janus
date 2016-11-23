@@ -1,0 +1,7 @@
+--ignore-dir=dist
+--ignore-dir=build
+--ignore-dir=static
+--ignore-dir=node_modules
+--ignore-dir=docs
+--ignore-file=is:tags
+
