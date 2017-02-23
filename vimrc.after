@@ -110,6 +110,9 @@ let javascript_enable_domhtmlcss=1
 "\ }
 
 "let g:ctrlp_buftag_types = {'coffee'     : '--language-force=coffee' ,'javascript'  : '--language-force=neojs'  }
+"
+let g:ctrlp_root_markers = ['.vimrc']
+
 
 GitGutterDisable
 
@@ -127,3 +130,14 @@ if (filereadable(b:vim))
 endif
 
 let g:jsx_ext_required = 0
+
+" use ag 'the silver searcher' instead of ack 
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+"  set grepprg=ag\ --nogroup\ --nocolor
+"  let g:ctrlp_user_command = 'ag %s --ignore .git --ignore .gitkeep --hidden -l --nocolor -g  ""'
+"  let g:ctrlp_use_caching = 0
+    
+endif
+let g:ctrlp_user_command_async = 1
+

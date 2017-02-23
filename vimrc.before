@@ -7,7 +7,7 @@ if !has("gui_running")
   set t_Co=256
 endif
 
-if has("mac")
+if has("mac") && has("macmeta")
   set macmeta
 endif
 
@@ -45,3 +45,5 @@ imap <S-CR> <CR><CR><Esc>ka<C-t>
 let mapleader = "\<Space>"
 
 let g:airline_theme='dark' 
+packadd! matchit
+

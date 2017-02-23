@@ -117,7 +117,7 @@ end
 
 function! PatchColorScheme()
   highlight Cursor guifg=black guibg=#FF0080
-  "highlight iCursor guifg=black guibg=#FF0080
+  highlight iCursor guifg=black guibg=#FF0080
 endfunction
 
 call PatchColorScheme()
