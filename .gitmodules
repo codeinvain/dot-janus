@@ -88,3 +88,6 @@
 [submodule "vim-airline-themes"]
 	path = vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
+[submodule "vim-haystack"]
+	path = vim-haystack
+	url = https://github.com/tpope/vim-haystack.git
