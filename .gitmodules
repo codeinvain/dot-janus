@@ -91,3 +91,6 @@
 [submodule "vim-haystack"]
 	path = vim-haystack
 	url = https://github.com/tpope/vim-haystack.git
+[submodule "file-line"]
+	path = file-line
+	url = https://github.com/bogado/file-line.git

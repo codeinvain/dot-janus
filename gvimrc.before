@@ -3,5 +3,6 @@ let g:syntastic_enable_balloons = 0
 
 if has("gui_macvim")
     set guioptions=egmrt
+    set macmeta
 endif
 

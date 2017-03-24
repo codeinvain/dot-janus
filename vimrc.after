@@ -91,8 +91,6 @@ let g:syntastic_html_tidy_ignore_errors = [
     \" proprietary attribute \"ui-"
 \]
 
-"autocmd VimEnter * NERDTree
-"autocmd BufEnter * NERDTreeMirror
 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
@@ -112,6 +110,9 @@ let javascript_enable_domhtmlcss=1
 "let g:ctrlp_buftag_types = {'coffee'     : '--language-force=coffee' ,'javascript'  : '--language-force=neojs'  }
 "
 let g:ctrlp_root_markers = ['.vimrc']
+
+
+
 
 
 GitGutterDisable
@@ -135,9 +136,41 @@ let g:jsx_ext_required = 0
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 "  set grepprg=ag\ --nogroup\ --nocolor
-"  let g:ctrlp_user_command = 'ag %s --ignore .git --ignore .gitkeep --hidden -l --nocolor -g  ""'
-"  let g:ctrlp_use_caching = 0
     
 endif
-let g:ctrlp_user_command_async = 1
 
+let g:ctrlp_use_caching = 0
+
+if 0 " multilien comment hack
+
+  let g:ctrlp_match_func = { 'match': 'FuzzyMatcher' }
+  let g:ctrlp_user_command = "echo 'none'"
+
+
+  function! FuzzyMatcher(items, str, limit, mmode, ispath, crfile, regex)
+    "mmode 'full-line' 'filename-only' 'first-non-tab' 'until-last-tab'
+    let type = ctrlp#call('s:CurTypeName')
+    let type = type[1]
+    let search_cmd = 'ag --smart-case -l -i -G ""'
+    let sort_cmd = 'fzf -i -f "'.a:str.'"'
+
+    if (type=='fil')
+      if empty(a:str)
+        let cmd= search_cmd.' | tail -n '.a:limit
+      else
+        let cmd = (a:regex) ? search_cmd : search_cmd.' | '.sort_cmd
+      endif
+      let items = split(system(cmd),"\n")
+      if (a:regex)
+        let exc = exists('s:crfilerel') ? s:crfilerel : ''
+        let items = ctrlp#call('s:MatchIt',items, a:str, a:limit, exc)
+      endif
+    else
+      let exc = exists('s:crfilerel') ? s:crfilerel : ''
+      let items = ctrlp#call('s:MatchIt',copy(a:items), a:str, a:limit, '')
+    endif
+    return items
+
+  endfunction
+
+endif
