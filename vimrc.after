@@ -109,10 +109,6 @@ let javascript_enable_domhtmlcss=1
 
 "let g:ctrlp_buftag_types = {'coffee'     : '--language-force=coffee' ,'javascript'  : '--language-force=neojs'  }
 "
-let g:ctrlp_root_markers = ['.vimrc']
-
-
-
 
 
 GitGutterDisable
@@ -139,38 +135,85 @@ if executable('ag')
     
 endif
 
-let g:ctrlp_use_caching = 0
-
-if 0 " multilien comment hack
-
-  let g:ctrlp_match_func = { 'match': 'FuzzyMatcher' }
-  let g:ctrlp_user_command = "echo 'none'"
+let g:ctrlp_root_markers = ['.vimrc']
+let g:crlp_user_command_async=1
+let g:crlp_user_command  = 'ag %s --ignore .git --ignore .gitkeep --hidden -l --nocolor -g'
+let g:ctrlp_use_caching = 1
 
 
-  function! FuzzyMatcher(items, str, limit, mmode, ispath, crfile, regex)
-    "mmode 'full-line' 'filename-only' 'first-non-tab' 'until-last-tab'
-    let type = ctrlp#call('s:CurTypeName')
-    let type = type[1]
-    let search_cmd = 'ag --smart-case -l -i -G ""'
-    let sort_cmd = 'fzf -i -f "'.a:str.'"'
 
-    if (type=='fil')
-      if empty(a:str)
-        let cmd= search_cmd.' | tail -n '.a:limit
-      else
-        let cmd = (a:regex) ? search_cmd : search_cmd.' | '.sort_cmd
-      endif
-      let items = split(system(cmd),"\n")
-      if (a:regex)
-        let exc = exists('s:crfilerel') ? s:crfilerel : ''
-        let items = ctrlp#call('s:MatchIt',items, a:str, a:limit, exc)
-      endif
-    else
-      let exc = exists('s:crfilerel') ? s:crfilerel : ''
-      let items = ctrlp#call('s:MatchIt',copy(a:items), a:str, a:limit, '')
-    endif
-    return items
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
-  endfunction
+"!!! MonkyPatched ctrlp#normcmd to not open in buffer 'nofile' (NERDtree
+"buffer type)
 
-endif
+fu! ctrlp#normcmd(cmd, ...)
+  let buftypes = [ 'quickfix', 'help' ,"nofile"]
+  if a:0 < 2 && ctrlp#call('s:nosplit') | retu a:cmd | en
+  let norwins = filter(range(1, winnr('$')),
+    \ 'index(buftypes, getbufvar(winbufnr(v:val), "&bt")) == -1 || ctrlp#call("s:isneovimterminal",winbufnr(v:val))')
+  for each in norwins
+    let bufnr = winbufnr(each)
+    if empty(bufname(bufnr)) && empty(getbufvar(bufnr, '&ft'))
+      let fstemp = each | brea
+    en
+  endfo
+  let norwin = empty(norwins) ? 0 : norwins[0]
+  if norwin
+    if index(norwins, winnr()) < 0
+      exe ( exists('fstemp') ? fstemp : norwin ).'winc w'
+    en
+    retu a:cmd
+  en
+  retu a:0 ? a:1 : 'bo vne'
+endf
+
+
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_mode_map={'mode': 'active'}
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+
+
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+function! RubFix(aggressive)
+  if (!empty(getbufvar(winbufnr('%'), "&bt")))
+    echo 'not a file buffer'
+    return 'not a file buffer'
+  endif
+  let cmd = 'rubocop -a'
+  if a:aggressive!='!'
+    let styles  = ["Style/LeadingCommentSpace","Style/SpaceAfterColon","Style/SpaceAfterComma","Style/SpaceAfterMethodName","Style/SpaceAroundBlockParameters",
+          \ "Style/SpaceAroundEqualsInParameterDefault","Style/SpaceAroundKeyword","Style/SpaceAroundOperators","Style/SpaceBeforeBlockBraces",
+          \ "Style/SpaceBeforeComma","Style/SpaceBeforeComment","Style/SpaceBeforeFirstArg","Style/SpaceBeforeSemicolon","Style/SpaceInsideBlockBraces",
+          \ "Style/SpaceInsideBrackets","Style/SpaceInsideHashLiteralBraces","Style/SpaceInsideParens","Style/SpaceInsidePercentLiteralDelimiters",
+          \ "Style/SpaceInsideRangeLiteral","Style/EmptyLineAfterMagicComment","Style/EmptyLineBetweenDefs","Style/EmptyLines",
+          \ "Style/EmptyLinesAroundAccessModifier","Style/EmptyLinesAroundBlockBody","Style/EmptyLinesAroundClassBody","Style/EmptyLinesAroundExceptionHandlingKeywords",
+          \ "Style/EmptyLinesAroundMethodBody","Style/EmptyLinesAroundModuleBody", "Style/TrailingCommaInLiteral", "Style/TrailingCommaInArguments",
+          \ "Style/TrailingUnderscoreVariable", "Style/TrailingWhitespace" , "Style/TrailingBlankLines", "Style/ExtraSpacing"
+          \ ]
+
+    let cmd = cmd.' --only'.join(styles,',')
+  endif
+                
+  let cmd = cmd.' '.expand('%:pj')
+  "echo cmd
+  execute 'w'
+  let resp = system(cmd)
+  "echo resp
+  edit!
+endfunction
+command! -bang RubFix call RubFix('<bang>')
+function! JsonFormat()
+ execute '%!python -m json.tool'
+endfunction
+command! JsonFormat call JsonFormat() 
+
