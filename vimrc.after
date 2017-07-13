@@ -181,37 +181,103 @@ let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-function! RubFix(aggressive)
+function! s:rubocop_line_errors()
+  let loclist = g:SyntasticLoclist.current()
+  let syntastic_private_messages = copy(loclist.messages(bufnr('')))
+  let line_number = line('.')
+  let line_errors = get(syntastic_private_messages, line_number, {})
+  return line_errors
+endfunction
+
+function! RubFix(aggressive,args)
+  let args = split(a:args,' ')
   if (!empty(getbufvar(winbufnr('%'), "&bt")))
     echo 'not a file buffer'
     return 'not a file buffer'
   endif
   let cmd = 'rubocop -a'
   if a:aggressive!='!'
-    let styles  = ["Style/LeadingCommentSpace","Style/SpaceAfterColon","Style/SpaceAfterComma","Style/SpaceAfterMethodName","Style/SpaceAroundBlockParameters",
-          \ "Style/SpaceAroundEqualsInParameterDefault","Style/SpaceAroundKeyword","Style/SpaceAroundOperators","Style/SpaceBeforeBlockBraces",
-          \ "Style/SpaceBeforeComma","Style/SpaceBeforeComment","Style/SpaceBeforeFirstArg","Style/SpaceBeforeSemicolon","Style/SpaceInsideBlockBraces",
-          \ "Style/SpaceInsideBrackets","Style/SpaceInsideHashLiteralBraces","Style/SpaceInsideParens","Style/SpaceInsidePercentLiteralDelimiters",
-          \ "Style/SpaceInsideRangeLiteral","Style/EmptyLineAfterMagicComment","Style/EmptyLineBetweenDefs","Style/EmptyLines",
-          \ "Style/EmptyLinesAroundAccessModifier","Style/EmptyLinesAroundBlockBody","Style/EmptyLinesAroundClassBody","Style/EmptyLinesAroundExceptionHandlingKeywords",
-          \ "Style/EmptyLinesAroundMethodBody","Style/EmptyLinesAroundModuleBody", "Style/TrailingCommaInLiteral", "Style/TrailingCommaInArguments",
-          \ "Style/TrailingUnderscoreVariable", "Style/TrailingWhitespace" , "Style/TrailingBlankLines", "Style/ExtraSpacing"
-          \ ]
-
-    let cmd = cmd.' --only'.join(styles,',')
+    if empty(args)
+      let styles  = ["Style/LeadingCommentSpace","Style/SpaceAfterColon","Style/SpaceAfterComma","Style/SpaceAfterMethodName","Style/SpaceAroundBlockParameters",
+            \ "Style/SpaceAroundEqualsInParameterDefault","Style/SpaceAroundKeyword","Style/SpaceAroundOperators","Style/SpaceBeforeBlockBraces",
+            \ "Style/SpaceBeforeComma","Style/SpaceBeforeComment","Style/SpaceBeforeFirstArg","Style/SpaceBeforeSemicolon","Style/SpaceInsideBlockBraces",
+            \ "Style/SpaceInsideBrackets","Style/SpaceInsideHashLiteralBraces","Style/SpaceInsideParens","Style/SpaceInsidePercentLiteralDelimiters",
+            \ "Style/SpaceInsideRangeLiteral","Style/EmptyLineAfterMagicComment","Style/EmptyLineBetweenDefs","Style/EmptyLines",
+            \ "Style/EmptyLinesAroundAccessModifier","Style/EmptyLinesAroundBlockBody","Style/EmptyLinesAroundClassBody","Style/EmptyLinesAroundExceptionHandlingKeywords",
+            \ "Style/EmptyLinesAroundMethodBody","Style/EmptyLinesAroundModuleBody", "Style/TrailingCommaInLiteral", "Style/TrailingCommaInArguments",
+            \ "Style/TrailingUnderscoreVariable", "Style/TrailingWhitespace" , "Style/TrailingBlankLines", "Style/ExtraSpacing"
+            \ ]
+    else
+      let styles = []
+      for command in args
+        if command=='setup' || command=='init'
+          let rubocop_files_count = system('ls -l .rubocop.yml | wc -l')
+          if rubocop_files_count =~ '\w*0\w*'
+            call system('echo "\nAllCops:\n  DisplayCopNames: true\n" > .rubocop.yml')
+          else
+            let rubocop_content = system('cat .rubocop.yml')
+            if rubocop_content !~ '\w*DisplayCopNames:\w*'
+              call system('echo "\nAllCops:\n  DisplayCopNames: true\n" >> .rubocop.yml')
+            else
+              echo 'rubocop.yml already contains init rules'
+            endif
+          end
+          return
+        elseif command=='ignore' || command=='add'
+          let line_errors = s:rubocop_line_errors()
+          if !empty(line_errors) 
+            for err in line_errors
+              let rubocop_rule = split(err['text'],':')[0]
+              if rubocop_rule =~ '^Style\/'
+                call system('echo "\n'.rubocop_rule.':\n  Enabled: false\n" >> .rubocop.yml')
+                echo "Style rule added to .rubocop.yml"
+              elseif rubocop_rule =~ '^Lint\/'
+                call system('echo "\n'.rubocop_rule.':\n  Enabled: false\n" >> .rubocop.yml')
+                echo "Lint rule added to .rubocop.yml"
+              elseif rubocop_rule =~ '^Metrics\/'
+                "let rule_value = matchstr(err['text'], '\[[0-9]\+')
+                call system('echo "\n'.rubocop_rule.':\n  Enabled: false\n" >> .rubocop.yml')
+                echo "Metric rule added to .rubocop.yml"
+              else
+                echo "don't know how to parse the rule"
+              end
+            endfor
+          endif
+          execute 'w'
+          return
+        end
+        if command=='error' || command=='err' || command=='this' || command=='current' " get current line errors
+          let line_errors = s:rubocop_line_errors()
+          if !empty(line_errors) 
+            for err in line_errors
+              let rubocop_rule = split(err['text'],':')[0]
+              call add(styles,rubocop_rule)
+            endfor
+          endif
+        else
+          call add(styles,command)
+        end
+      endfor
+    endif
+    if empty(styles)
+      echo "didn't find rubucop errors on current line"
+      return 
+    endif
+    let cmd = cmd.' --only '.join(styles,',')
   endif
                 
   let cmd = cmd.' '.expand('%:pj')
-  "echo cmd
   execute 'w'
+  "echo cmd
   let resp = system(cmd)
   "echo resp
   edit!
+  execute 'w'
 endfunction
-command! -bang RubFix call RubFix('<bang>')
+command! -bang -nargs=* RubFix call RubFix('<bang>', <q-args>)
 function! JsonFormat()
  execute '%!python -m json.tool'
 endfunction

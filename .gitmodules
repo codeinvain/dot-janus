@@ -97,3 +97,6 @@
 [submodule "ctrlp-cmatcher"]
 	path = ctrlp-cmatcher
 	url = https://github.com/JazzCore/ctrlp-cmatcher.git
+[submodule "vim-yaml-helper"]
+	path = vim-yaml-helper
+	url = https://github.com/lmeijvogel/vim-yaml-helper.git
